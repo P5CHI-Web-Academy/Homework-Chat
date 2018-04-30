@@ -1,0 +1,40 @@
+
+#########################
+## Sample Sass Lint File
+#########################
+# Linter Options
+options:
+  # Don't merge default rules
+  merge-default-rules: true
+  # Set the formatter to 'html'
+  formatter: stylish
+  # Raise an error if more than 50 warnings are generated
+  max-warnings: 250
+# File Options
+files:
+#  include: 'sass/**/*.s+(a|c)ss'
+  ignore:
+    - 'public/source/css/front/materialize/**/*.*'
+# Rule Configuration
+rules:
+  bem-depth:
+    - 2
+    - max-depth: 1
+  class-name-format:
+    - 2
+    - allow-leading-underscore: false
+      convention: hyphenatedbem
+  indentation:
+    - 2
+    - size: 2
+  nesting-depth:
+    - 2
+    - max-depth: 4
+  force-element-nesting: 0
+  force-pseudo-nesting: 0
+  placeholder-in-extend: 0
+  pseudo-element: 0
+  extends-before-mixins: 2
+  extends-before-declarations: 2
+  no-ids: 2
+  no-important: 2

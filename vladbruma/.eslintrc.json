@@ -1,0 +1,14 @@
+{
+    "parser": "babel-eslint",
+    "extends": "google",
+    "rules": {
+        "max-len": ["error", {"code": 120, "tabWidth": 2, "ignoreUrls": true}],
+        "comma-dangle": ["error", {
+            "arrays": "never",
+            "objects": "never",
+            "imports": "never",
+            "exports": "never",
+            "functions": "ignore"
+        }]
+    }
+}
