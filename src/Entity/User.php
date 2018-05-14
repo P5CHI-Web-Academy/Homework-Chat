@@ -1,0 +1,176 @@
+<?php
+namespace App\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="user")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class User{
+
+    /**
+     * @var int
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(name="id", type="integer")
+     */
+    private $id;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="outgoingMessages")
+     */
+    private $outgoingMessages;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="incomingMessages")
+     */
+    private $incomingMessages;
+
+    public function __construct()
+    {
+        $this->incomingMessages = new ArrayCollection();
+        $this->outgoingMessages = new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return User
+     */
+    public function setId(int $id): User
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return User
+     */
+    public function setName(string $name): User
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return User
+     */
+    public function setPassword(string $password): User
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function setEmail(string $email): User
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getIncomingMessages(): Collection
+    {
+        return $this->incomingMessages;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getOutgoingMessages(): Collection
+    {
+        return $this->outgoingMessages;
+    }
+
+    /**
+     * @param Message $message
+     * @return User
+     */
+    public function addIncomingMessage(Message $message): User
+    {
+        if(!$this->incomingMessages->contains($message)) {
+            $this->incomingMessages->add($message);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Message $message
+     * @return User
+     */
+    public function addOutgoingMessage(Message $message): User
+    {
+        if(!$this->outgoingMessages->contains($message)) {
+            $this->outgoingMessages->add($message);
+        }
+
+        return $this;
+    }
+}
