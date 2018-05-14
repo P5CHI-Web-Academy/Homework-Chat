@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create User{% endblock %}
+
+{% block body %}
+    <h1>New User</h1>
+    <span>
+        If you are registered, please, login via link {{ url('chat.show', {token: 'YOUR_AUTH_TOKEN'}) }}
+    </span>
+    <h4>If you are a new user, your auth token will be generated automatically</h4>
+
+    {{ form_start(registerForm, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(registerForm) }}
+
+        <button type="submit">Create</button>
+    {{ form_end(registerForm) }}
+{% endblock %}

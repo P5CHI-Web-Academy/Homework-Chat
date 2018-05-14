@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -30,25 +30,25 @@ class User{
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
-     */
     private $email;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="outgoingMessages")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
      */
     private $outgoingMessages;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="incomingMessages")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="addressee")
      */
     private $incomingMessages;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=255)
+     */
+    private $token;
 
     public function __construct()
     {
@@ -76,9 +76,9 @@ class User{
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -95,28 +95,9 @@ class User{
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     * @return User
-     */
-    public function setPassword(string $password): User
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -170,6 +151,25 @@ class User{
         if(!$this->outgoingMessages->contains($message)) {
             $this->outgoingMessages->add($message);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     * @return User
+     */
+    public function setToken(string $token): User
+    {
+        $this->token = $token;
 
         return $this;
     }

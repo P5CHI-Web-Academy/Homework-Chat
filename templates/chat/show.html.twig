@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat{% endblock %}
+
+{%  block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vendor.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.min.css">
+{% endblock %}
+
+{% block body %}
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+        your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    <div class="ct-container">
+        <div class="ct-contacts">
+            <div class="ct-me">
+                <div class="ct-avatar ct-avatar--large">
+                    <a href="{{ url('chat.show', {token: me.token}) }}">
+                        <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image">
+                    </a>
+                </div>
+                <div class="ct-me__username">
+                    {{ me.name }}
+                </div>
+                <div class="ct-me__email">
+                    {{ me.email }}
+                </div>
+            </div>
+            <div class="ct-contact-container">
+                {% for user in users %}
+                    <div class="ct-contact ct-contact{% if interlocutorUser is defined and interlocutorUser.id == user.id %}--active{% endif %}"
+                         onclick="location.href='{{ url('chat.view', {token: me.token, interlocutorId: user.id}) }}';"
+                    >
+                        <div class="ct-contact__avatar-container">
+                            <div class="ct-avatar ct-avatar--large">
+                                <div class="ct-avatar__user-status ct-avatar__user-status--online"></div>
+                                <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image">
+                            </div>
+                        </div>
+                        <div class="ct-contact__user-info-container">
+                            <div class="ct-contact__user-name">
+                                {{ user.name }}
+                            </div>
+                            <div class="ct-contact__user-last-message">Hello, did you see my...</div>
+                            <div class="ct-contact__user-unread-message-number" id="unread_message_number_container_{{ user.id }}" style="display: none">
+                                <span>0</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="ct-dialog">
+            {% block dialogue %}
+                <div class="ct-greeting">
+                    <span>Hello, {{ me.name }}</span>
+                    <p>Your auth token is {{ me.token }}</p>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/vendor.js') }}"></script>
+    <script src="{{ asset('js/scripts.js') }}"></script>
+{% endblock %}

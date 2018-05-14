@@ -11,6 +11,7 @@ class UserFixtures extends Fixture
 {
     /**
      * @param ObjectManager $manager
+     * @throws \Exception
      */
     public function load(ObjectManager $manager): void
     {
@@ -20,7 +21,7 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setEmail($faker->email);
             $user->setName($faker->name);
-            $user->setPassword('12'); // default password
+            $user->setToken(\bin2hex(\random_bytes(10)));
 
             $manager->persist($user);
             $this->addReference('user_' . $i, $user);
