@@ -20,7 +20,7 @@
             <div class="ct-me">
                 <div class="ct-avatar ct-avatar--large">
                     <a href="{{ url('chat.show', {token: me.token}) }}">
-                        <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image">
+                        <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image--large">
                     </a>
                 </div>
                 <div class="ct-me__username">
@@ -38,7 +38,9 @@
                         <div class="ct-contact__avatar-container">
                             <div class="ct-avatar ct-avatar--large">
                                 <div class="ct-avatar__user-status ct-avatar__user-status--online"></div>
-                                <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image">
+                                <div class="ct-avatar__innercontainer">
+                                    <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image--large">
+                                </div>
                             </div>
                         </div>
                         <div class="ct-contact__user-info-container">

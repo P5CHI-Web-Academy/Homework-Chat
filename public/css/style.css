@@ -79,12 +79,29 @@ h1 {
     width: 30px;
     height: 30px;
     background-color: orange;
-    border-radius: 30px
+    border-radius: 30px;
 }
 
-.ct-avatar__image {
+.ct-avatar__innercontainer {
+    width: 100%;
+    height: 100%;
+    border-radius: 60px;
+    overflow: hidden;
+}
+
+.ct-avatar__image--large {
     width: 60px;
-    height: auto
+    height: 60px;
+}
+
+.ct-avatar__image--medium {
+    width: 45px;
+    height: 45px;
+}
+
+.ct-avatar__image--small {
+    width: 30px;
+    height: 30px;
 }
 
 .ct-avatar--medium {
