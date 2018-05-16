@@ -15,13 +15,16 @@
         your browser</a> to improve your experience and security.</p>
     <![endif]-->
 
+    <input type="hidden" name="token" value="{{ me.token }}">
     <div class="ct-container">
         <div class="ct-contacts">
             <div class="ct-me">
                 <div class="ct-avatar ct-avatar--large">
-                    <a href="{{ url('chat.show', {token: me.token}) }}">
-                        <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image--large">
-                    </a>
+                    <div class="ct-avatar__innercontainer">
+                        <a href="{{ url('chat.show', {token: me.token}) }}">
+                            <img src="{{ asset(avatars_directory ~ '/' ~ (me.avatar is not null ? me.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--large">
+                        </a>
+                    </div>
                 </div>
                 <div class="ct-me__username">
                     {{ me.name }}
@@ -39,7 +42,7 @@
                             <div class="ct-avatar ct-avatar--large">
                                 <div class="ct-avatar__user-status ct-avatar__user-status--online"></div>
                                 <div class="ct-avatar__innercontainer">
-                                    <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image--large">
+                                    <img src="{{ asset(avatars_directory ~ '/' ~ (user.avatar is not null ? user.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--large">
                                 </div>
                             </div>
                         </div>

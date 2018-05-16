@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1>Edit my profile</h1>
+    <span>
+        <a href="{{ url('chat.show', {token: user.token}) }}">Go back to dialogues</a>
+    </span>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+
+    <button type="submit">Edit</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -45,4 +45,32 @@ class UserController extends AbstractController {
             'registerForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("user/{token}/edit", name="edit", requirements={"token" = "\w+"})
+     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param User $user
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function edit(Request $request, User $user, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute(
+                'user.edit',
+                ['token' => $user->getToken(),]
+            );
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
 }

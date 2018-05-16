@@ -21,6 +21,7 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setEmail($faker->email);
             $user->setName($faker->name);
+            //$user->setAvatar(null);
             $user->setToken(\bin2hex(\random_bytes(10)));
 
             $manager->persist($user);

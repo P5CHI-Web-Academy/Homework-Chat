@@ -6,7 +6,7 @@
             <div class="ct-avatar ct-avatar--medium">
                 <div class="ct-avatar__user-status ct-avatar__user-status--online"></div>
                 <div class="ct-avatar__innercontainer">
-                    <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image--medium">
+                    <img src="{{ asset(avatars_directory ~ '/' ~ (interlocutorUser.avatar is not null ? interlocutorUser.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--medium">
                 </div>
             </div>
             <div class="ct-dialog__interlocutor-name">
@@ -14,39 +14,14 @@
             </div>
         </div>
 
-        <a href="">
+        <a href="{{ url('user.edit', {token: me.token}) }}">
         <button type="button" class="btn btn-secondary ct-button__edit" title="Settings">
             <span class="octicon octicon-gear"></span>
         </button>
         </a>
     </div>
     <div id="ct-dialog__messages-container" class="ct-dialog__messages-container">
-        {#
-        {% for message in messages %}
-            <div class="ct-message ct-message{% if message.sender == me %}--my{% endif %}">
-                {% if message.sender != me %}
-                    <div class="ct-message__user--notmy">
-                        <div class="ct-avatar ct-avatar--small">
-                            <img src="" alt="" class="ct-avatar__image">
-                        </div>
-                    </div>
-                {% endif %}
-                <div class="ct-message__container">
-                    <div class="ct-message__time">{{ message.createdAt|date("d/m/Y H:i") }}</div>
-                    <div class="ct-message__text">
-                        {{ message.messageText }}
-                    </div>
-                </div>
-                {% if message.sender == me %}
-                    <div class="ct-message__user--my">
-                        <div class="ct-avatar ct-avatar--small">
-                            <img src="" alt="" class="ct-avatar__image">
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-        #}
+        <!---Place for dialogue templates--->
     </div>
     <!--Template-my-->
     <div class="ct-message ct-message--my" id="message_template_my" style="display: none;">
@@ -56,7 +31,7 @@
         </div>
         <div class="ct-message__user--my">
             <div class="ct-avatar ct-avatar--small">
-                <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image--small">
+                <img src="{{ asset(avatars_directory ~ '/' ~ (me.avatar is not null ? me.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--small">
             </div>
         </div>
     </div>
@@ -64,7 +39,7 @@
     <div class="ct-message" id="message_template" style="display: none;">
         <div class="ct-message__user">
             <div class="ct-avatar ct-avatar--small">
-                <img src="{{ asset('img/avatar_circle_blue_512dp.png') }}" alt="" class="ct-avatar__image--small">
+                <img src="{{ asset(avatars_directory ~ '/' ~ (interlocutorUser.avatar is not null ? interlocutorUser.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--small">
             </div>
         </div>
         <div class="ct-message__container">
@@ -78,7 +53,6 @@
         <form id="ct-message__form" method="post" action="{{ url('chat.send', {token: me.token}) }}" autocomplete="off">
             <div id="ct-message__send-div">
                 <textarea name="message" rows="3" cols="120" placeholder="Write a message"></textarea>
-                <input type="hidden" name="token" value="{{ me.token }}">
                 <input type="hidden" name="interlocutorId" value="{{ interlocutorUser.id }}">
                 <button type="submit">Send</button>
             </div>
