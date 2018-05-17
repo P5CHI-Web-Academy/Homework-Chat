@@ -124,4 +124,11 @@ jQuery.noConflict();
     }
     getUnreadMessagesCount();
     setInterval(getUnreadMessagesCount, 7000);
+
+    $('textarea[name="message"]').keypress(function (e) {
+        if (e.which == 13) {
+            $('form#ct-message__form').submit();
+            return false;
+        }
+    });
 })(jQuery);

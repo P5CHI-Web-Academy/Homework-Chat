@@ -316,3 +316,11 @@ h1 {
 .ct-button__edit {
     height: 100%;
 }
+
+#message_input {
+    width: 100%;
+}
+
+.ct-message__text {
+    word-break: break-all;
+}
