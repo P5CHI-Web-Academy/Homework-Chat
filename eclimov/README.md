@@ -31,3 +31,4 @@ User is considered "Online" if the last message he sent was (<20min) ago
 `bin/console doctrine:schema:create`
 6. Set write permissions to public uploads folder  
 `chmod -R 777 public/uploads`
+7. Open `http://localhost`
