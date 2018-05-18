@@ -20,15 +20,6 @@ User is considered "Online" if the last message he sent was (<20min) ago
 **Init instructions**
 1. Proceed to project folder  
 `cd eclimov`
-2. Install dependencies  
-`npm install`  
-`composer install`
-3. Start container  
-`docker-compose up -d`
-4. Access PHP container's console  
-`docker-compose exec php-fpm bash`
-5. Create DB schema(tables, relations, etc.)  
-`bin/console doctrine:schema:create`
-6. Set write permissions to public uploads folder  
-`chmod -R 777 public/uploads`
-7. Open `http://localhost`
+2. Execute 'init' script  
+`bash init.sh`
+3. Open `http://localhost`
