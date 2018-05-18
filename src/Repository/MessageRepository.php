@@ -70,4 +70,45 @@ class MessageRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param User $user
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastOutgoingMessageByUser(User $user)
+    {
+        return $this->createQueryBuilder('m')
+            ->select('m')
+            ->andWhere('m.sender = :sender')
+            ->setParameters([
+                'sender' => $user,
+            ])
+            ->orderBy('m.createdAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param User $addressee
+     * @param User $sender
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findLastRelatedOutgoingMessageByUsers(User $addressee, User $sender)
+    {
+        return $this->createQueryBuilder('m')
+            ->select('m')
+            ->andWhere('m.sender = :sender')
+            ->andWhere('m.addressee = :addressee')
+            ->setParameters([
+                'addressee' => $addressee,
+                'sender' => $sender,
+            ])
+            ->orderBy('m.createdAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

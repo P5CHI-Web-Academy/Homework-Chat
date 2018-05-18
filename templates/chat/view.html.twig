@@ -4,7 +4,7 @@
     <div class="ct-dialog__top-bar">
         <div class="ct-dialog__interlocutor">
             <div class="ct-avatar ct-avatar--medium">
-                <div class="ct-avatar__user-status ct-avatar__user-status--online"></div>
+                <div class="ct-avatar__user-status ct-avatar__user-status--online status_online_{{ interlocutorUser.id }}" style="display: none;"></div>
                 <div class="ct-avatar__innercontainer">
                     <img src="{{ asset(avatars_directory ~ '/' ~ (interlocutorUser.avatar is not null ? interlocutorUser.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--medium">
                 </div>

@@ -97,6 +97,12 @@ jQuery.noConflict();
             method: 'GET'
         }).done(function (data) {
             $.each(data, function (n, item) {
+                $('#user_last_message_' + item.userId).html(item.lastMessage);
+                if (item.isOnline) {
+                    $('.status_online_' + item.userId).show();
+                } else {
+                    $('.status_online_' + item.userId).hide();
+                }
                 var container = $('#unread_message_number_container_' + item.userId);
                 if (container.length !== 0) {
                     if (item.msgCount) {
@@ -122,7 +128,7 @@ jQuery.noConflict();
         setTimeout(updateScroll, 300);
         setInterval(getMessages, 3000);
     }
-    getUnreadMessagesCount();
+    setTimeout(getUnreadMessagesCount, 300);
     setInterval(getUnreadMessagesCount, 7000);
 
     $('textarea[name="message"]').keypress(function (e) {

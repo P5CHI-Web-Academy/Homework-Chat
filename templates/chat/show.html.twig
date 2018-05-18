@@ -40,7 +40,7 @@
                     >
                         <div class="ct-contact__avatar-container">
                             <div class="ct-avatar ct-avatar--large">
-                                <div class="ct-avatar__user-status ct-avatar__user-status--online"></div>
+                                <div class="ct-avatar__user-status ct-avatar__user-status--online status_online_{{ user.id }}" style="display: none;"></div>
                                 <div class="ct-avatar__innercontainer">
                                     <img src="{{ asset(avatars_directory ~ '/' ~ (user.avatar is not null ? user.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--large">
                                 </div>
@@ -50,7 +50,7 @@
                             <div class="ct-contact__user-name">
                                 {{ user.name }}
                             </div>
-                            <div class="ct-contact__user-last-message">Hello, did you see my...</div>
+                            <div class="ct-contact__user-last-message" id="user_last_message_{{ user.id }}"></div>
                             <div class="ct-contact__user-unread-message-number" id="unread_message_number_container_{{ user.id }}" style="display: none">
                                 <span>0</span>
                             </div>

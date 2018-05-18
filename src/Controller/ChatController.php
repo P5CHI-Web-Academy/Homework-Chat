@@ -117,6 +117,9 @@ class ChatController extends AbstractController {
      * @Method("GET")
      * @param User $user
      * @return JsonResponse
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     * This method should be renamed and optimized, but there is no time left for refactoring
      */
     public function getUnreadMessagesCount(User $user): JsonResponse
     {
@@ -131,9 +134,33 @@ class ChatController extends AbstractController {
                 ->getRepository(Message::class)
                 ->findUnreadMessagesByUsers($user, $sender);
 
+            $lastRelatedMessage = $this->getDoctrine()
+                ->getRepository(Message::class)
+                ->findLastRelatedOutgoingMessageByUsers($user, $sender);
+            $lastRelatedMessageText = '';
+            if ($lastRelatedMessage) {
+                $lastRelatedMessageText = $lastRelatedMessage->getMessageText();
+                if (\strlen($lastRelatedMessageText) > 15) {
+                    $lastRelatedMessageText = substr($lastRelatedMessageText, 0, 20) . '...';
+                }
+            }
+
+            $lastMessage = $this->getDoctrine()
+                ->getRepository(Message::class)
+                ->findLastOutgoingMessageByUser($sender);
+            $isOnline = 0;
+            if ($lastRelatedMessage) {
+                $lastActiveMinutesAgo = ((new \DateTime())->getTimestamp() - $lastMessage->getCreatedAt()->getTimestamp()) / 60;
+                if ($lastActiveMinutesAgo < 20) {
+                    $isOnline = 1;
+                }
+            }
+
             $result[] = [
                 'userId' => $sender->getId(),
                 'msgCount' => \count($unreadMessages),
+                'lastMessage' => $lastRelatedMessageText,
+                'isOnline' => $isOnline,
             ];
         }
 
