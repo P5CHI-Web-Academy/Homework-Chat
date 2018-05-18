@@ -21,5 +21,6 @@ User is considered "Online" if the last message he sent was (<20min) ago
 1. Proceed to project folder  
 `cd eclimov`
 2. Execute 'init' script  
-`bash init.sh`
-3. Open `http://localhost`
+`bash init.sh`\
+_If problems appear(with DB schema, maybe), run the commands manually_
+3. Open `http://localhost` to check that it's working
