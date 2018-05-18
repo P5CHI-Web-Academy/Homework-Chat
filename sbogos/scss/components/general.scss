@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:200,300');
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+.btn {
+  background: $color-grey;
+  color: $color-violet;
+  border: none;
+  padding: 5px 15px;
+  cursor: pointer;
+}
