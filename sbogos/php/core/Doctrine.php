@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManager;
 class Doctrine {
     use SingletonTrait;
 
-    const DB_HOST = '127.0.0.1';
+    const DB_HOST = 'mysql';
     const DB_DATABASE = 'chat';
     const DB_USERNAME = 'root';
     const DB_PASSWORD = '';
