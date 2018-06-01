@@ -1,0 +1,7 @@
+.idea
+node_modules
+vendor
+public/*.css
+public/*.css.map
+public/*.js
+public/*.js.map

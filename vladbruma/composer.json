@@ -1,0 +1,10 @@
+{
+  "name" : "chat",
+  "description" : "The Chat",
+  "license": "MIT",
+  "require": {
+    "respect/validation": "^1.1",
+    "doctrine/orm": "^2.6",
+    "cboden/ratchet": "^0.4"
+  }
+}
