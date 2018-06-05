@@ -1,0 +1,65 @@
+{% extends 'chat/show.html.twig' %}
+
+{% block dialogue %}
+    <div class="ct-dialog__top-bar">
+        <div class="ct-dialog__interlocutor">
+            <div class="ct-avatar ct-avatar--medium">
+                <div class="ct-avatar__user-status ct-avatar__user-status--online status_online_{{ interlocutorUser.id }}" style="display: none;"></div>
+                <div class="ct-avatar__innercontainer">
+                    <img src="{{ asset(avatars_directory ~ '/' ~ (interlocutorUser.avatar is not null ? interlocutorUser.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--medium">
+                </div>
+            </div>
+            <div class="ct-dialog__interlocutor-name">
+                {{ interlocutorUser.name }}
+            </div>
+        </div>
+
+        <a href="{{ url('user.edit', {token: me.token}) }}">
+        <button type="button" class="btn btn-secondary ct-button__edit" title="Settings">
+            <span class="octicon octicon-gear"></span>
+        </button>
+        </a>
+    </div>
+    <div id="ct-dialog__messages-container" class="ct-dialog__messages-container">
+        <!---Place for dialogue templates--->
+    </div>
+    <!--Template-my-->
+    <div class="ct-message ct-message--my" id="message_template_my" style="display: none;">
+        <div class="ct-message__container">
+            <div class="ct-message__time"></div>
+            <div class="ct-message__text"></div>
+        </div>
+        <div class="ct-message__user--my">
+            <div class="ct-avatar__innercontainer">
+                <div class="ct-avatar ct-avatar--small">
+                    <img src="{{ asset(avatars_directory ~ '/' ~ (me.avatar is not null ? me.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--small">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Template-notmy-->
+    <div class="ct-message" id="message_template" style="display: none;">
+        <div class="ct-message__user">
+            <div>
+                <div class="ct-avatar ct-avatar--small">
+                    <img src="{{ asset(avatars_directory ~ '/' ~ (interlocutorUser.avatar is not null ? interlocutorUser.avatar.getFilename : 'avatar_default.png')) }}" alt="" class="ct-avatar__image--small">
+                </div>
+            </div>
+        </div>
+        <div class="ct-message__container">
+            <div class="ct-message__time"></div>
+            <div class="ct-message__text"></div>
+        </div>
+    </div>
+
+
+    <div class="ct-dialog__send-bar">
+        <form id="ct-message__form" method="post" action="{{ url('chat.send', {token: me.token}) }}" autocomplete="off">
+            <div id="ct-message__send-div">
+                <textarea id="message_input" name="message" rows="3" placeholder="Write a message" autofocus></textarea>
+                <input type="hidden" name="interlocutorId" value="{{ interlocutorUser.id }}">
+                <button type="submit">Send</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
